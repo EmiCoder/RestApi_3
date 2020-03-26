@@ -6,18 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TrelloBoardDto {
+public class BadgesDto {
 
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("id")
-    private String id;
-    @JsonProperty("lists")
-    private List<TrelloListDto> lists;
+    @JsonProperty("votes")
+    private int votes;
+    @JsonProperty("attachments")
+    private AttachmentsByTypeDto attachments;
 }
