@@ -60,6 +60,7 @@ public class TrelloClientTest {
 
     @Test
     public void shouldCreateCard() throws URISyntaxException {
+
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                                             "Test task",
                                             "Test description",
@@ -67,9 +68,7 @@ public class TrelloClientTest {
                                             "test_id"
         );
 
-
-
-        URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20Description&pos=top&idList=test_id");
+        URI uri = new URI("http://test.com/members/emicello/cards?key=test&token=test&name=Test%20task&desc=Test%20description&pos=top&idList=test_id");
 
         CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
                 "1",
@@ -91,7 +90,7 @@ public class TrelloClientTest {
     public void shouldReturnEmptyList() throws URISyntaxException {
         URI uri = new URI("http://test.com" +
                 "/members" +
-                "/psobow" +
+                "/emicello" +
                 "/boards" +
                 "?key=test" +
                 "&token=test" +
