@@ -26,12 +26,12 @@ public class TaskController {
 
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getTasks() throws NotFoundException {
+    public ResponseEntity getTasks() throws NotFoundException {
         List<TaskDto> list = mapper.mapToTaskDtoList(service.getAllTasks());
-        if (list.isEmpty()) {
+        if (!list.isEmpty()) {
             return ResponseEntity.ok().body(list);
         } else {
-            throw new NotFoundException("List not found");
+            return ResponseEntity.badRequest().body("List not found");
         }
     }
 
