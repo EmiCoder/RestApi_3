@@ -35,12 +35,17 @@ public class TaskController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getTask(@PathVariable Long id) {
-        if (!service.getAllTasks().stream().anyMatch(task -> task.getId().equals(id))) {
-            return ResponseEntity.badRequest().body("Task with given id does not exists.");
-        }
-        return new ResponseEntity<>(mapper.mapToTaskDto(service.findById(id).get()), HttpStatus.FOUND);
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> getTask(@PathVariable Long id) {
+//        if (!service.getAllTasks().stream().anyMatch(task -> task.getId().equals(id))) {
+//            return ResponseEntity.badRequest().body("Task with given id does not exists.");
+//        }
+//        return new ResponseEntity<>(mapper.mapToTaskDto(service.findById(id).get()), HttpStatus.FOUND);
+//    }
+
+    @RequestMapping(method=RequestMethod.DELETE, value="deleteTask")
+    public void deleteTask(@RequestParam Long taskId) {
+        service.deleteById(taskId);
     }
 
     @DeleteMapping("/{id}")
@@ -54,10 +59,7 @@ public class TaskController {
                 .build();
     }
 
-    @DeleteMapping()
-    public void deleteTask(@RequestBody TaskDto taskDto) {
-        service.deleteById(taskDto.getId());
-    }
+
 
     @PutMapping
     public ResponseEntity<?> updateTask(@RequestBody TaskDto taskDto) {
