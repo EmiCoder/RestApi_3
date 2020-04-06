@@ -44,7 +44,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTaskById(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(
                 "resr_api_3",
@@ -54,6 +54,10 @@ public class TaskController {
                 .build();
     }
 
+    @DeleteMapping()
+    public void deleteTask(@RequestBody TaskDto taskDto) {
+        service.deleteById(taskDto.getId());
+    }
 
     @PutMapping
     public ResponseEntity<?> updateTask(@RequestBody TaskDto taskDto) {
