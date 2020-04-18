@@ -5,10 +5,7 @@ import com.kodillatask.rest_api_3.tasks.domain.TrelloBoardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.trello.client.TrelloClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
@@ -33,7 +31,7 @@ public class TrelloController {
 //        trelloBoards.stream()
 //                        .filter(distinctByKeys(TrelloBoardDto::getId, TrelloBoardDto::getName))
 //                        .filter(TrelloBoardDto -> TrelloBoardDto.getName().equals(NAME))
-//                        .collect(Collectors.toList());
+//                        .forEach(System.out::println);
 
         return trelloClient.getTrelloBoards();
     }
