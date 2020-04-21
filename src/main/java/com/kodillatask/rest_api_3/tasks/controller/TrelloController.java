@@ -3,6 +3,7 @@ package com.kodillatask.rest_api_3.tasks.controller;
 import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCard;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloBoardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloCardDto;
+import com.kodillatask.rest_api_3.tasks.service.TrelloService;
 import com.kodillatask.rest_api_3.tasks.trello.client.TrelloClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,25 +22,28 @@ import java.util.stream.Collectors;
 public class TrelloController {
 
     @Autowired
-    private TrelloClient trelloClient;
+    private TrelloService trelloService;
 
     private final String NAME = "Kodilla";
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-//        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
 //        trelloBoards.stream()
 //                        .filter(distinctByKeys(TrelloBoardDto::getId, TrelloBoardDto::getName))
 //                        .filter(TrelloBoardDto -> TrelloBoardDto.getName().equals(NAME))
 //                        .forEach(System.out::println);
-
-        return trelloClient.getTrelloBoards();
+        return trelloService.fetchTrelloBoards();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
     public CreatedTrelloCard createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloClient.createNewCard(trelloCardDto);
+        return trelloService.createTrelloCard(trelloCardDto);
     }
+
+
+
+
 
     private static <T> Predicate<T> distinctByKeys(Function<? super T, ?>... keyExtractors)
     {
