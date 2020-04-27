@@ -9,6 +9,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+
 @Service
 public class SimpleEmailService {
 
@@ -28,6 +35,7 @@ public class SimpleEmailService {
             LOGGER.error("E-mail sending process failed", e.getMessage(), e);
         }
     }
+
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();

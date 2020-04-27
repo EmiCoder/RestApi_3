@@ -1,6 +1,6 @@
 package com.kodillatask.rest_api_3.tasks.trello.client;
 
-import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCard;
+import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloBoardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.trello.config.TrelloConfig;
@@ -42,16 +42,15 @@ public class TrelloClient {
         }
     }
 
-    public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) throws RestClientException{
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/members/emicello/cards")
+    public CreatedTrelloCardDto createNewCard(TrelloCardDto trelloCardDto) throws RestClientException{
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
                 .queryParam("token", trelloConfig.getTrelloToken())
                 .queryParam("name", trelloCardDto.getName())
                 .queryParam("desc", trelloCardDto.getDescription())
                 .queryParam("pos", trelloCardDto.getPos())
                 .queryParam("idList", trelloCardDto.getListId()).build().encode().toUri();
-        System.out.println("Jestem w TrelloClient i url to: " + url);
-        return restTemplate.postForObject(url, null, CreatedTrelloCard.class);
+        return restTemplate.postForObject(url, null, CreatedTrelloCardDto.class);
     }
 
     public URI build_url() {

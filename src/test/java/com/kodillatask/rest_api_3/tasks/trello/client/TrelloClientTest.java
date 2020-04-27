@@ -1,7 +1,7 @@
 package com.kodillatask.rest_api_3.tasks.trello.client;
 
 import com.kodillatask.rest_api_3.tasks.domain.BadgesDto;
-import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCard;
+import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloBoardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.trello.config.TrelloConfig;
@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -70,16 +69,16 @@ public class TrelloClientTest {
 
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20task&desc=Test%20description&pos=top&idList=test_id");
 
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto(
                 "1",
                 "Test task",
                 "http://test.com",
                 new BadgesDto()
         );
 
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCardDto);
 
-        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
 
         Assert.assertEquals("1", newCard.getId());
         Assert.assertEquals("Test task", newCard.getName());

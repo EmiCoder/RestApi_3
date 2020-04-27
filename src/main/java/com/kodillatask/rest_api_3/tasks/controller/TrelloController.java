@@ -1,10 +1,10 @@
 package com.kodillatask.rest_api_3.tasks.controller;
 
-import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCard;
+import com.kodillatask.rest_api_3.tasks.domain.CreatedTrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloBoardDto;
 import com.kodillatask.rest_api_3.tasks.domain.TrelloCardDto;
 import com.kodillatask.rest_api_3.tasks.service.TrelloService;
-import com.kodillatask.rest_api_3.tasks.trello.client.TrelloClient;
+import com.kodillatask.rest_api_3.tasks.trello.facade.TrelloFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,23 +22,23 @@ import java.util.stream.Collectors;
 public class TrelloController {
 
     @Autowired
-    private TrelloService trelloService;
+    private TrelloFacade trelloFacade;
 
     private final String NAME = "Kodilla";
 
     @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-        List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 //        trelloBoards.stream()
 //                        .filter(distinctByKeys(TrelloBoardDto::getId, TrelloBoardDto::getName))
 //                        .filter(TrelloBoardDto -> TrelloBoardDto.getName().equals(NAME))
 //                        .forEach(System.out::println);
-        return trelloService.fetchTrelloBoards();
+        return trelloFacade.fetchTrelloBoards();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
-    public CreatedTrelloCard createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloService.createTrelloCard(trelloCardDto);
+    public CreatedTrelloCardDto createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloFacade.createCard(trelloCardDto);
     }
 
 
