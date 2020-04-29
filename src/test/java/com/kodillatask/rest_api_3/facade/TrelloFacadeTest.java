@@ -15,8 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
@@ -32,8 +31,6 @@ public class TrelloFacadeTest {
     private TrelloValidator trelloValidator;
     @Mock
     private TrelloMapper trelloMapper;
-    @Mock
-    private TrelloClient trelloClient;
 
     @Test
     public void shouldFetchEmptyList() {
@@ -52,7 +49,7 @@ public class TrelloFacadeTest {
         when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
         when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
         when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(new ArrayList<>());
-        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(new ArrayList<>());
+//        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(new ArrayList<>());
 
         List<TrelloBoardDto> trelloBoardDto = trelloFacade.fetchTrelloBoards();
         assertNotNull(trelloBoardDto);
@@ -76,7 +73,7 @@ public class TrelloFacadeTest {
         when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
         when(trelloMapper.mapToBoards(trelloBoards)).thenReturn(mappedTrelloBoards);
         when(trelloMapper.mapToBoardsDto(anyList())).thenReturn(trelloBoards);
-        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
+//        when(trelloValidator.validateTrelloBoards(mappedTrelloBoards)).thenReturn(mappedTrelloBoards);
 
         List<TrelloBoardDto> trelloBoardDto = trelloFacade.fetchTrelloBoards();
         assertNotNull(trelloBoardDto);
