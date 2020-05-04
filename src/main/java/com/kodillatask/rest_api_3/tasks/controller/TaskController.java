@@ -32,7 +32,6 @@ public class TaskController {
             return ResponseEntity.ok().body(list);
         } else {
             return ResponseEntity.badRequest().body("List not found");
-
         }
     }
 
@@ -41,7 +40,8 @@ public class TaskController {
         if (!service.getAllTasks().stream().anyMatch(task -> task.getId().equals(id))) {
             return ResponseEntity.badRequest().body("Task with given id does not exists.");
         }
-        return new ResponseEntity<>(mapper.mapToTaskDto(service.findById(id).get()), HttpStatus.FOUND);
+//        return new ResponseEntity<>(mapper.mapToTaskDto(service.findById(id).get()), HttpStatus.FOUND);
+        return ResponseEntity.ok().body(mapper.mapToTaskDto(service.findById(id).get()));
     }
 
     @DeleteMapping("/{id}")
@@ -70,13 +70,14 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) throws URISyntaxException {
-        if (taskDto.getId() != null) {
-            return ResponseEntity.badRequest().body("Task with given id already exists.");
-        }
+//        if (taskDto.getId() != null) {
+//            return ResponseEntity.badRequest().body("Task with given id already exists.");
+//        }
 
         TaskDto result = mapper.mapToTaskDto(service.save(mapper.mapToTask(taskDto)));
-        return ResponseEntity.created(new URI("/v1/task/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("rest_api_3", false, "task", result.getId().toString()))
-                .body(result);
+//        return ResponseEntity.created(new URI("/v1/task/" + result.getId()))
+//////                .headers(HeaderUtil.createEntityCreationAlert("rest_api_3", false, "task", result.getId().toString()))
+//////                .body(result);
+        return ResponseEntity.ok().body(result);
     }
 }
