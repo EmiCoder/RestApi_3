@@ -1,1 +1,3 @@
 rootProject.name = 'rest_api_3'
+include 'kodilla_testing2'
+
