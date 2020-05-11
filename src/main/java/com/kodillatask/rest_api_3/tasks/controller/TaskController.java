@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/task")
+@RequestMapping("/v1")
 public class TaskController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class TaskController {
     private TaskMapper mapper;
 
 
-    @GetMapping
+    @GetMapping("/tasks")
     public ResponseEntity getTasks() throws NotFoundException {
         List<TaskDto> list = mapper.mapToTaskDtoList(service.getAllTasks());
         if (!list.isEmpty()) {
@@ -35,7 +35,7 @@ public class TaskController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/tasks/{id}")
     public ResponseEntity<?> getTask(@PathVariable Long id) {
         if (!service.getAllTasks().stream().anyMatch(task -> task.getId().equals(id))) {
             return ResponseEntity.badRequest().body("Task with given id does not exists.");
@@ -44,7 +44,7 @@ public class TaskController {
         return ResponseEntity.ok().body(mapper.mapToTaskDto(service.findById(id).get()));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/tasks/{id}")
     public ResponseEntity<?> deleteTaskById(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(
@@ -57,7 +57,7 @@ public class TaskController {
 
 
 
-    @PutMapping
+    @PutMapping("/tasks")
     public ResponseEntity<?> updateTask(@RequestBody TaskDto taskDto) {
         if (taskDto.getId() == null) {
             return ResponseEntity.badRequest().body("TaskId was not specified.");
@@ -68,16 +68,16 @@ public class TaskController {
                 .body(result);
     }
 
-    @PostMapping
+    @PostMapping("/tasks")
     public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) throws URISyntaxException {
 //        if (taskDto.getId() != null) {
 //            return ResponseEntity.badRequest().body("Task with given id already exists.");
 //        }
 
         TaskDto result = mapper.mapToTaskDto(service.save(mapper.mapToTask(taskDto)));
-//        return ResponseEntity.created(new URI("/v1/task/" + result.getId()))
-//////                .headers(HeaderUtil.createEntityCreationAlert("rest_api_3", false, "task", result.getId().toString()))
-//////                .body(result);
+//        return ResponseEntity.created(new URI("/v1/tasks/" + result.getId()))
+//                .headers(HeaderUtil.createEntityCreationAlert("rest_api_3", false, "task", result.getId().toString()))
+//                .body(result);
         return ResponseEntity.ok().body(result);
     }
 }

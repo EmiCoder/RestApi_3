@@ -26,7 +26,7 @@ public class TrelloController {
 
     private final String NAME = "Kodilla";
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "/boards")
     public List<TrelloBoardDto> getTrelloBoards() {
         List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 //        trelloBoards.stream()
@@ -36,7 +36,7 @@ public class TrelloController {
         return trelloFacade.fetchTrelloBoards();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    @RequestMapping(method = RequestMethod.POST, value = "/cards")
     public CreatedTrelloCardDto createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloFacade.createCard(trelloCardDto);
     }
