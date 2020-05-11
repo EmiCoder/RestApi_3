@@ -62,6 +62,7 @@ public class MailCreatorService {
         context.setVariable("goodbye","Best regards!" );
         context.setVariable("preview_message", "Tasks Status" );
         return templateEngine.process("mail/information-tasks-quantity-mail", context);
+
     }
 
 }
